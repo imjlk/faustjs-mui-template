@@ -24,3 +24,14 @@ npx create-next-app \
     --use-npm \
     .
 ```
+
+### Install MUI and configuration
+
+```shell
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled @emotion/cache @emotion/server
+```
+
+<!-- 필요할지? -->
+- MUI + emotion (default)
+- MUI + styled-component
+- MUI + emotion + Tailwind CSS?
