@@ -20,7 +20,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
+  opacity: 0;
+  width: 100%;
+  transition: 0.5s;
 }
 
 .scene-img {

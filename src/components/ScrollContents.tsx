@@ -1,19 +1,42 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // import Image from 'next/image';
 import styles from 'scss/components/ScrollContents.module.scss';
 
 type ScrollContent = {
   bgImage: (index: number) => string;
   text: string;
+  // isVisible: boolean;
 };
 interface Props {
   data?: Array<ScrollContent>;
 }
 
 function ScrollContents({ data = [] }: Props): JSX.Element {
-  const scrollContentText = useRef();
+  const scrollContentRef = useRef();
+
   useEffect(() => {
-    console.log(scrollContentText.current);
+    let currentGraphic = null;
+    let boundingRect = null;
+
+    window.addEventListener('scroll', (e) => {
+      const elem = scrollContentRef.current as HTMLElement;
+      const graphics = elem.querySelectorAll('div > div');
+      const texts = elem.querySelectorAll('div > p');
+
+      texts.forEach((text: HTMLElement) => {
+        boundingRect = text.getBoundingClientRect();
+        if (
+          boundingRect.top > window.innerHeight * 0.1 &&
+          boundingRect.top < window.innerHeight * 0.8
+        ) {
+          if (currentGraphic) {
+            currentGraphic.classList.remove('visible');
+          }
+          currentGraphic = graphics[text.dataset.index];
+          currentGraphic.classList.add('visible');
+        }
+      });
+    });
   }, []);
 
   if (data.length === 0) {
@@ -21,13 +44,16 @@ function ScrollContents({ data = [] }: Props): JSX.Element {
   }
 
   return (
-    <section className={styles['scroll-content']}>
+    <section className={styles['scroll-content']} ref={scrollContentRef}>
       <div className={styles['scroll-graphic']}>
         {data.map((elem, index) => (
           <div
             key={`graphic-${index}`}
             data-index={index}
-            className={styles['graphic-item']}
+            className={[
+              styles['graphic-item'],
+              // elem.isVisible === true ? styles.visible : '',
+            ].join()}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
