@@ -1,0 +1,40 @@
+@import 'scss/variables';
+
+.scroll-content {
+  position: relative;
+}
+
+.scroll-graphic {
+  // position: ;
+
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+.graphic-item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.scene-img {
+  max-width: 100%;
+  display: block;
+  max-height: 100%;
+}
+
+.scroll-text {
+  position: relative;
+  z-index: 1;
+  padding: 0 4rem;
+}
+.scroll-text p {
+  margin-bottom: 60vh;
+  background-color: #fff;
+}
