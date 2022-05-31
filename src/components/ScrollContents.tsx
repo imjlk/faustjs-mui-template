@@ -15,14 +15,14 @@ function ScrollContents({ data = [] }: Props): JSX.Element {
   const scrollContentRef = useRef();
 
   useEffect(() => {
-    let currentGraphic = null;
+    const elem = scrollContentRef.current as HTMLElement;
+    const graphics = elem.querySelectorAll('div > div');
+    const texts = elem.querySelectorAll('div > p');
+    let currentGraphic = graphics[0];
     let boundingRect = null;
+    graphics[0].classList.add('visible');
 
     window.addEventListener('scroll', (e) => {
-      const elem = scrollContentRef.current as HTMLElement;
-      const graphics = elem.querySelectorAll('div > div');
-      const texts = elem.querySelectorAll('div > p');
-
       texts.forEach((text: HTMLElement) => {
         boundingRect = text.getBoundingClientRect();
         if (
